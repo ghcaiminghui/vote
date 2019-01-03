@@ -35,7 +35,7 @@
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
         <div class="formControls col-xs-8">
-          <input  name="passwd" type="password" placeholder="密码" class="input-text size-L">
+          <input  name="password" type="password" placeholder="密码" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">
@@ -81,8 +81,9 @@
                 allError += "{{$error}}<br />";
 
             @endforeach
+            layer.alert(allError,{title:'错误提示'});
       @endif
-      layer.alert(allError,{title:'错误提示'});
+      
     });
 </script>
 </body>
