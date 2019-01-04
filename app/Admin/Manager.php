@@ -13,6 +13,8 @@ class Manager extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
     //关闭时间戳
     public $timestamps = false;
 
+    protected $fillable = ['password'];
+
     //使用
     use Authenticatable;
 }

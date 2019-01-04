@@ -33,7 +33,7 @@ class PublicController extends Controller
 
     		//设置验证规则
     		'username'	=> 'required|min:5|max:20',
-    		'password'    => 'required|min:5|max:20',
+    		'password'    => 'required|min:4|max:20',
     		'captcha'   => 'required|size:4|captcha'
     	]);
 

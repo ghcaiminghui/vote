@@ -30,5 +30,30 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'] , function(){
 	//后台首页
 	Route::get('/index/index','Admin\IndexController@index');
 	Route::get('/index/welcome','Admin\IndexController@welcome');
+	//管理员管理
+	Route::get('/manager/update','Admin\ManagerController@update');
+	Route::post('/manager/store','Admin\ManagerController@store');
+	//用户管理
+	Route::get('/user/index','Admin\UserController@index');
+	Route::any('/user/create','Admin\UserController@create');
+	//投票管理
+	Route::get('/vote/index','Admin\VoteController@index');
+	Route::any('/vote/create','Admin\VoteController@create');
+
+});
+
+//前台登录
+Route::get('/','Home\PublicController@login');
+//前台验证数据
+Route::post('/home/public/check','Home\PublicController@check');
+
+
+//前台路由组
+Route::group(['prefix' => 'home', 'middleware' => 'login'],function(){
+
+	//前台首页
+	Route::get('/index/index','Home\IndexController@index');
+	//前台投票详情页
+	Route::get('/voteinfo/index','Home\VoteinfoController@index');
 
 });
