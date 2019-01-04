@@ -22,7 +22,11 @@
 .marketing p + h4 {
   margin-top: 48px;
 }
+.vote{
+ margin-left: 10px;
+}
 	</style>
+
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -38,7 +42,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="#">投票主题</a></li>
+					<li><a href="/home/index/index">投票主题</a></li>
 					<li><a href="#about">查看投票结果</a></li>
 					<li><a href="#contact">评论</a></li>
 					<li><a href="#contact">退出</a></li>
@@ -109,34 +113,59 @@
 				</div>
 			</h4>
           	<p>这是一条个人说明，你的竞选理由</p>
+
+        </div>
+		<button type="button" class="btn btn-lg btn-success vote">投&nbsp;&nbsp;票</button>
+		<hr class="col-lg-12">
+
+		<!-- 评论栏目 -->
+<!-- 		<div class="form-group has-success col-xs-6">
+			<label class="control-label" for="inputSuccess1">评论内容</label>
+			<input type="text" class="form-control" id="inputSuccess1" aria-describedby="helpBlock2">
+		</div>
+		<div class="form-group has-success col-xs-2">
+			<label class="control-label" for="inputSuccess1">&nbsp;</label>
+			<button type="button" class="btn btn-success form-control">发表匿名评论</button>
+		</div>
+		<div class="row"> -->
+
+		<div id="cphMainContent_ucComment_pnlCommentSender" class="row Sender">
+        <div id="cphMainContent_ucComment_pnlCommentNicknameInput" class="col-md-2 form-group">
+				
+            <label>昵称：</label>
+            <input name="ctl00$cphMainContent$ucComment$tbNickname" type="text" maxlength="12" id="tbNickname" class="form-control NicknameInput">
+        
+			</div>
+        <div class="col-md-8 form-group CommentEditorWrapper">
+            <label>评论内容：</label>
+            <div class="input-group">
+                <input id="tbCommentContent" type="text" class="form-control CommentInput">
+                <span class="input-group-addon"><a href="javascript:;" class="MoodSelectButton"><i class="fa fa-smile-o"></i></a></span>
+                <span class="input-group-btn">
+                    <input id="btnPostComment" type="button" value="发表评论" class="btn btn-info ButtonPostComment"></span>
+            </div>
         </div>
 
+		<!-- 评论栏目结束 -->
+		<div class="clearfix"></div>
+		<!-- 评论内容 -->
+		<div class="col-md-10">
+			<ul class="list-group">
+				<li class="list-group-item">Cras justo odio</li>
+				<li class="list-group-item">Dapibus ac facilisis in</li>
+				<li class="list-group-item">Morbi leo risus</li>
+				<li class="list-group-item">Porta ac consectetur ac</li>
+				<li class="list-group-item">Vestibulum at eros</li>
+			</ul>
+		</div>
+		<!-- 评论内容结束 -->
 
-
-		<!-- <form role="form">
-			多选效果
-			<div class="checkbox">
-				<input type="checkbox" id="checkbox1">
-				<label for="checkbox1">
-				Check me out
-				</label>
-			</div>
-			...
-			<div class="checkbox">
-				<input type="checkbox" id="checkbox1">
-				<label for="checkbox1">
-				Check me out
-				</label>
-			</div>
-			<div class="checkbox">
-				<input type="checkbox" id="checkbox1">
-				<label for="checkbox1">
-				Check me out
-				</label>
-			</div>
-		</form>  -->
 
 	</div>
+
+
+
+	
 	
 </body>
 
