@@ -33,8 +33,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="/home/index/index">投票主题</a></li>
 					<li class="active"><a href="/home/voteresult/index">查看投票结果</a></li>
-					<li><a href="#contact">评论</a></li>
-					<li><a href="#contact">退出</a></li>
+					<li><a href="/home/public/logout">退出</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>

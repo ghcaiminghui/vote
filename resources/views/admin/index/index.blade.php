@@ -21,7 +21,7 @@
 <script type="text/javascript" src="/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>H-ui.admin v3.1</title>
+<title>广东信达投票系统后台</title>
 </head>
 <body>
 <header class="navbar-wrapper">
@@ -35,8 +35,7 @@
 				<li class="dropDown dropDown_hover">
 					<a href="#" class="dropDown_A">{{Auth::guard('admin') -> user() -> username}} <i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
-						<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
-						<li><a href="#">切换账户</a></li>
+						<li><a href="/">前往前台</a></li>
 						<li><a href="/admin/public/logout">退出</a></li>
 				</ul>
 			</li>
@@ -58,7 +57,7 @@
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
 		<dl id="menu-comments">
-			<dt><i class="Hui-iconfont">&#xe622;</i> 投票管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe6d3;</i> 投票管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="/admin/vote/index" data-title="评论列表" href="javascript:;">我的主题</a></li>
@@ -69,8 +68,7 @@
 			<dt><i class="Hui-iconfont">&#xe622;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="评论列表" href="javascript:;">评论列表</a></li>
-					<li><a data-href="feedback-list.html" data-title="意见反馈" href="javascript:void(0)">意见反馈</a></li>
+					<li><a data-href="/admin/comment/index" data-title="评论列表" href="javascript:;">评论列表</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -192,51 +190,6 @@ $(function(){
 		index:0,
 	});
 });
-/*个人信息*/
-function myselfinfo(){
-	layer.open({
-		type: 1,
-		area: ['300px','200px'],
-		fix: false, //不固定
-		maxmin: true,
-		shade:0.4,
-		title: '查看信息',
-		content: '<div>管理员信息</div>'
-	});
-}
-
-/*资讯-添加*/
-function article_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-/*图片-添加*/
-function picture_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-/*产品-添加*/
-function product_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-/*用户-添加*/
-function member_add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
-
 
 </script> 
 

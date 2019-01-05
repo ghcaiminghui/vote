@@ -16,6 +16,14 @@ class PublicController extends Controller
     	return view('home.public.login');
     }
 
+    //退出登录
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+
+        return redirect('/');
+    }
+
     //前台数据检查
     public function check(Request $request)
     {
