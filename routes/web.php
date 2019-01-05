@@ -55,5 +55,9 @@ Route::group(['prefix' => 'home', 'middleware' => 'login'],function(){
 	Route::get('/index/index','Home\IndexController@index');
 	//前台投票详情页
 	Route::get('/voteinfo/index','Home\VoteinfoController@index');
+	//检查投票数据
+	Route::post('/voteinfo/check','Home\VoteinfoController@check');
+	//投票结果显示
+	Route::get('/voteresult/index','Home\VoteResultController@index');
 
 });

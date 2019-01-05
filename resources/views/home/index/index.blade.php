@@ -26,7 +26,7 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#">投票主题</a></li>
-					<li><a href="#about">查看投票结果</a></li>
+					<li><a href="/home/voteresult/index">查看投票结果</a></li>
 					<li><a href="#contact">评论</a></li>
 					<li><a href="#contact">退出</a></li>
 				</ul>
@@ -42,7 +42,7 @@
 			<div class="container">
 				<h1>{{$row -> title}}</h1>
 				<p>{{$row -> intro}}</p>
-				<p><a class="btn btn-lg btn-success" href="#" role="button">查看详情</a></p>
+				<p><a class="btn btn-lg btn-success" href="/home/voteinfo/index?id={{$row->id}}" role="button">查看详情</a></p>
 			</div>
 		</div>
 	</div>

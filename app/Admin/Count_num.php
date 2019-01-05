@@ -4,12 +4,12 @@ namespace App\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Vote_option extends Model
+class Count_num extends Model
 {
     //关联数据表
-    protected $table = 'vote_option';
+    protected $table = 'count_num';
     //关闭时间戳
     public $timestamps = false;
     //设置属性
-    protected $fillable = ['vote_id','vote_name','content','total'];
+    protected $fillable = ['user_id','vote_id','vote_option_id','count_num'];
 }

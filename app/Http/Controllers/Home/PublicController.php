@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Admin\User;
+use App\Admin\Count_num;
 
 class PublicController extends Controller
 {
@@ -38,6 +39,13 @@ class PublicController extends Controller
     			//存储用户名和ID值
     			session(['username' => $username , 'id' => $userinfo -> id]);
 
+                //获取用户投票的记录
+                if( $voteRecord = Count_num::where('user_id',session('id')) ->pluck('vote_id') ->toArray() ){
+
+                    //存储投票记录
+                    session(['voteRecord' => $voteRecord]);
+                }
+                
     			return redirect('/home/index/index');
     		}else{
     			//跳转到登录页和返回错误信息

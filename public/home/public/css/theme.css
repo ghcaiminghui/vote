@@ -16,3 +16,13 @@ body {
 .theme-showcase .navbar .container {
   width: auto;
 }
+
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 48px;
+}
+.vote{
+ margin-left: 10px;
+}
