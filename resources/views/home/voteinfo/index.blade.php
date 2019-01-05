@@ -32,7 +32,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="/home/index/index">投票主题</a></li>
+					<li class="active"><a href="/home/index/index">投票主题</a></li>
 					<li><a href="/home/voteresult/index">查看投票结果</a></li>
 					<li><a href="#contact">评论</a></li>
 					<li><a href="#contact">退出</a></li>
@@ -100,26 +100,32 @@
 	        <div class="col-md-8 form-group">
 	            <label>评论内容：</label>
 	            <div class="input-group">
-	                <input type="text" class="form-control ">
-	                <span class="input-group-btn"><input type="button" name="comment" value="发表评论" class="btn btn-info "></span>
+	                <input type="text" class="form-control" name="content">
+	                <span class="input-group-btn"><input type="button" value="发表评论" class="btn btn-info comment"></span>
 	            </div>
 	        </div>
 		
 			<div class="clearfix"></div>
+
 			<!-- 评论内容 -->
 			<div class="col-md-10">
 				<div class="CommentList">
+					@if(!$comment)
 					<div class="alert alert-warning" role="alert">
 					<i class="fa fa-exclamation-triangle"></i>
 					尚未有人发表评论，来发第一条吧！
 					</div>
+					@endif
 				</div>
 				<!-- 内容 -->
 				<ul class="list-group">
-					<li class="list-group-item"><span  class="text-info">士大夫傻蛋</span>：Cras justo odio</li>
+					@foreach($comment as $row)
+					<li class="list-group-item ucontent"><span  class="text-info">{{$row -> nickname}}</span>：{{$row -> content}}</li>
+					@endforeach
 				</ul>
 			</div>
 			<!-- 评论内容结束 -->
+
 		</div>
 		<!-- 评论栏目结束 -->
 	</div>
@@ -128,6 +134,7 @@
 <script type="text/javascript" src="/admin/lib/layer/2.4/layer.js"></script>
 <script>
 	$(function(){
+
 		$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 
 		var optionMin = "{{$vote -> ticket_min}}";
@@ -175,6 +182,35 @@
 				layer.alert('投票失败,投票数不能小于' + optionMin + '票或大于' + optionMax + '票.' );
 			}
 		}); 
+
+		//点击发表评论
+		$('.comment').click(function(){
+
+			var nickname = $('input[name=nickname]').val();
+			var content = $('input[name=content]').val();
+			
+			if(nickname == '' || content == ''){
+
+				layer.alert('您好！昵称和内容不能为空');
+				
+			}else{
+
+				$.post('/home/comment/create',{nickname:nickname,content:content,'user_id':"{{session('id')}}",'vote_id':"{{$vote -> id}}"},function(data){
+
+					if( data == '1'){
+
+						layer.alert('发表成功');
+						$('input[name=nickname]').val('');
+						$('input[name=content]').val('');
+						$('.ucontent').last().after('<li class="list-group-item ucontent"><span  class="text-info">'+ nickname +'</span>：'+ content +'</li>')
+					}else if( data == '2'){
+
+						layer.alert('评论失败,请刷新浏览器再试！！');
+					}
+				});
+			}
+
+		});
 
 	});
 </script>

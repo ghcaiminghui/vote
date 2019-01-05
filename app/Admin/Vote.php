@@ -17,5 +17,10 @@ class Vote extends Model
     {
     	return $this->hasMany('App\Admin\Vote_option', 'vote_id', 'id');
     }
+    //一个主题对多个评论
+    public function comment()
+    {
+        return $this->hasMany('App\Admin\Comment', 'vote_id', 'id');
+    }
     
 }

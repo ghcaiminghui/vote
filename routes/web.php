@@ -59,5 +59,7 @@ Route::group(['prefix' => 'home', 'middleware' => 'login'],function(){
 	Route::post('/voteinfo/check','Home\VoteinfoController@check');
 	//投票结果显示
 	Route::get('/voteresult/index','Home\VoteResultController@index');
+	//用户发表评论
+	Route::post('/comment/create','Home\CommentController@create');
 
 });

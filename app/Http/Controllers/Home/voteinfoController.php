@@ -30,8 +30,11 @@ class voteinfoController extends Controller
                 $bool = false;
             }
 
+            //查询该主题下的所有评论
+            $comment = $vote -> comment() -> get();
+
     		//加载投票详情页
-    		return view('home.voteinfo.index',compact('vote','vote_option','bool'));
+    		return view('home.voteinfo.index',compact('vote','vote_option','bool','comment'));
 
     	//否则重新跳转到投票主页
     	}else{
