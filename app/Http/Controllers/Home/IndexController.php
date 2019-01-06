@@ -15,7 +15,6 @@ class IndexController extends Controller
     	//获取所有status=2的主题
     	$vote = Vote::where('status','2') -> get(); 
 
-
     	return view('home.index.index',compact('vote'));
     }
 }

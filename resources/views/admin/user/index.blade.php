@@ -38,10 +38,7 @@
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="80">ID</th>
 				<th width="100">用户名</th>
-				<th width="40">性别</th>
-				<th width="90">手机</th>
-				<th width="150">邮箱</th>
-				<th width="">地址</th>
+				<th width="80">地址</th>
 				<th width="130">加入时间</th>
 				<th width="70">状态</th>
 				<th width="100">操作</th>
@@ -53,10 +50,7 @@
 				<td><input type="checkbox" value="1" name=""></td>
 				<td>{{$row -> id}}</td>
 				<td>{{$row -> username}}</td>
-				<td>男</td>
-				<td>13000000000</td>
-				<td>admin@mail.com</td>
-				<td class="text-l">北京市 海淀区</td>
+				<td class="text-l">XXX</td>
 				<td>2014-6-11 11:11:42</td>
 				<td class="td-status">
 					@if($row -> status == '2')
@@ -96,7 +90,7 @@ $(function(){
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":[0,5,6]}// 制定列不参与排序
 		]
 	});
 	

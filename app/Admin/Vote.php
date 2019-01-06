@@ -11,7 +11,7 @@ class Vote extends Model
     //关闭时间戳
     public $timestamps = false;
     //设置属性
-    protected $fillable = ['title','intro','type','ticket_min','ticket_max','content','status'];
+    protected $fillable = ['title','intro','type','ticket_min','ticket_max','content','total','status'];
     //一对多
     public function vote_option()
     {

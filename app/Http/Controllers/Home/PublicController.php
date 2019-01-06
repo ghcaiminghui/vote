@@ -52,6 +52,7 @@ class PublicController extends Controller
 
                     //存储投票记录
                     session(['voteRecord' => $voteRecord]);
+                    
                 }
                 
     			return redirect('/home/index/index');

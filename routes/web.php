@@ -43,8 +43,10 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'] , function(){
 	Route::any('/comment/index','Admin\CommentController@index');
 	//评论修改
 	Route::any('/comment/update','Admin\CommentController@update');
-	//票数统计
+	//票数统计(用户投票情况)
 	Route::get('/counting/index','Admin\CountingController@index');
+	//票数统计(主题投票情况)
+	Route::get('/counting/show','Admin\CountingController@show');
 
 });
 

@@ -22,9 +22,16 @@ class voteinfoController extends Controller
     		//查询主题下所有的候选人
     		$vote_option = $vote->vote_option() -> where('vote_id',$vote->id) -> get();
 
-            if( in_array($vote_id, session('voteRecord')) ){
+            //判断session是否为空
+            if(session('voteRecord')){
 
-                $bool = true;
+                if( in_array($vote_id, session('voteRecord')) ){
+                
+                    $bool = true;
+                }else{
+
+                    $bool = false;
+                }
             }else{
 
                 $bool = false;
@@ -60,9 +67,9 @@ class voteinfoController extends Controller
             if( !Count_num::where('user_id',$data['user_id']) -> where('vote_id',$data['vote_id']) ->  first()){
 
                 //获取该主题的限制值
-                $restrict = Vote::where('id',$data['vote_id']) ->select('ticket_max','ticket_min') -> first();
+                $restrict = Vote::where('id',$data['vote_id']) ->select('ticket_max','ticket_min','total') -> first();
 
-                //计算客户传过来多少个值
+                //计算客户传过来多少个候选人
                 $num = count($data['vote_option_id']);
 
                 //统计val数组有多少个值,不能大于限制值
@@ -74,11 +81,17 @@ class voteinfoController extends Controller
                     //将数据写入到统计表
                     if( Count_num::create($data) ){
 
+                        //每一人投票就往主题表total自增1,用于统计主题的投票人数
+                        $restrict -> where('id',$data['vote_id']) -> increment('total',1);
+
                         //遍历选手值,批量增加候选人表的ID值
                         foreach( $request ->input('val') as $val){
 
                            Vote_option::where('id',$val) -> increment('total',1);
                         }
+
+                        //投票成功之前写入投票的session信息(用于判断用户是否已投票)
+                        $request -> session() -> push('voteRecord',$data['vote_id']);
 
                         //投票成功
                         return response() -> json(['msg' => '1']);

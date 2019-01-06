@@ -60,7 +60,7 @@
 			<dt><i class="Hui-iconfont">&#xe6d3;</i> 投票管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/admin/vote/index" data-title="评论列表" href="javascript:;">我的主题</a></li>
+					<li><a data-href="/admin/vote/index" data-title="我的主题" href="javascript:;">我的主题</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -76,7 +76,7 @@
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/admin/user/index" data-title="会员列表" href="javascript:;">用户列表</a></li>
+					<li><a data-href="/admin/user/index" data-title="用户列表" href="javascript:;">用户列表</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -84,7 +84,8 @@
 			<dt><i class="Hui-iconfont">&#xe621;</i> 数据统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="charts-1.html" data-title="折线图" href="javascript:void(0)">投票统计</a></li>
+					<li><a data-href="/admin/counting/index" data-title="用户投票情况" href="javascript:void(0)">用户投票情况</a></li>
+					<li><a data-href="/admin/counting/show" data-title="主题投票情况" href="javascript:void(0)">主题投票情况</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -92,7 +93,7 @@
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/admin/manager/update" data-title="管理员列表" href="javascript:void(0)">修改密码</a></li>
+					<li><a data-href="/admin/manager/update" data-title="改密码" href="javascript:void(0)">修改密码</a></li>
 				</ul>
 			</dd>
 		</dl>
