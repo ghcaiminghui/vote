@@ -36,6 +36,8 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'] , function(){
 	//用户管理
 	Route::get('/user/index','Admin\UserController@index');
 	Route::any('/user/create','Admin\UserController@create');
+	//用户管理(批量添加)
+	Route::any('/user/insert','Admin\UserController@insert');
 
 	//投票管理
 	Route::get('/vote/index','Admin\VoteController@index');

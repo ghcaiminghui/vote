@@ -48,6 +48,41 @@ class UserController extends Controller
             //反则是get请求加载视图
             return view('admin.user.add');
         }
-        
+    }
+
+    //用户批量添加
+    public function insert(Request $request)
+    {
+
+        if ( $request -> isMethod('post') ){
+
+            $username = $request -> input('usernameArr');
+            $password = $request -> input('password');
+
+            //去除首尾的|竖线
+            $username = trim($username,'|');
+
+            //将字符串转换成数组,然后去掉重复
+            $username = array_unique(explode('|',$username));
+
+            //查询数据库的所有用户
+            $user = User::pluck('username') -> toArray();
+            
+            //遍历新加的数据
+            foreach( $username as  $val){
+
+                //如果新加的值非空 并且 新值不存在数据库中,就执行添加操作。
+                if( $val != '' && !in_array($val,$user) ){
+
+                    User::create([ 'username'=>$val,'password' => $password ]);
+                }              
+            }
+
+            return '1';
+
+        }else{
+
+            return view('admin.user.insert');
+        }
     }
 }
