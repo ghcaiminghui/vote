@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Admin\Vote;
+use App\Admin\Comment;
+use App\Admin\Count_num;
+use App\Admin\Vote_option;
 
 class VoteController extends Controller
 {
@@ -25,8 +28,14 @@ class VoteController extends Controller
     {
 
     	if( $request -> isMethod('post') ){
+
     		//获取投票主题的数据
     		$vote = $request -> only(['title','intro','type','ticket_min','ticket_max','content','status']);
+
+            //将限制值都转换为整数
+            $vote['ticket_min'] = abs(intval($vote['ticket_min']));
+            $vote['ticket_max'] = abs(intval($vote['ticket_max']));
+
     		//投票选项表的数据
     		$vote_option = $request -> input('vote_name');
 
@@ -52,5 +61,41 @@ class VoteController extends Controller
     		//否则是GET请求加载视图
     		return view('admin.vote.create');
     	}
+    }
+
+    //删除主题
+    public function delete(Request $request)
+    {
+        //获取主题的ID值
+        $id = $request -> input('id');
+
+        //删除主题
+        if( Vote::where('id',$id) -> delete() ){
+
+            //删除主题的候选项
+            Vote_option::where('vote_id',$id) -> delete();
+
+            //删除主题的相关评论
+            Comment::where('vote_id',$id) -> delete();
+
+            //删除主题的投票统计
+            Count_num::where('vote_id',$id) -> delete();
+
+        }
+
+        return '1';
+    }
+
+    //编辑主题
+    public function update(Request $request)
+    {
+
+        //获取修改主题的ID
+        $id = $request -> input('id');
+
+        //查询该主题的信息
+        $vote = Vote::where('id',$id) -> first();
+
+        return view('admin.vote.update',compact('vote'));
     }
 }

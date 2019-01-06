@@ -36,9 +36,16 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'] , function(){
 	//用户管理
 	Route::get('/user/index','Admin\UserController@index');
 	Route::any('/user/create','Admin\UserController@create');
+
 	//投票管理
 	Route::get('/vote/index','Admin\VoteController@index');
 	Route::any('/vote/create','Admin\VoteController@create');
+	//投票管理删除主题
+	Route::post('/vote/delete','Admin\VoteController@delete');
+	//投票管理(编辑主题)
+	Route::any('/vote/update','Admin\VoteController@update');
+
+
 	//评论管理
 	Route::any('/comment/index','Admin\CommentController@index');
 	//评论修改

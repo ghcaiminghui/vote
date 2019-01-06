@@ -38,7 +38,7 @@ class voteinfoController extends Controller
             }
 
             //查询该主题下的所有评论
-            $comment = $vote -> comment() -> get();
+            $comment = $vote -> comment() -> get() ->toArray();
 
     		//加载投票详情页
     		return view('home.voteinfo.index',compact('vote','vote_option','bool','comment'));

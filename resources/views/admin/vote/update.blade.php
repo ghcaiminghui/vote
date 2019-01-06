@@ -24,7 +24,7 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>新增投票</title>
+<title>编辑主题</title>
 </head>
 <body>
 <article class="page-container">
@@ -32,13 +32,13 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票主题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text"  placeholder="请输入投票的标题" name="title">
+				<input type="text" class="input-text"  placeholder="请输入投票的标题" name="title" value="{{$vote -> title}}">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">投票简介：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="intro" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,10)"></textarea>
+				<textarea name="intro" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,10)">{{$vote -> intro}}</textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/250</p>
 			</div>
 		</div>
@@ -54,8 +54,8 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>票量限制：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<input type="number" name="ticket_min" id="" placeholder="最少投几票" value="" class="input-text" style=" width:20%">
-				<input type="number" name="ticket_max" id="" placeholder="最多投几票" value="" class="input-text" style=" width:20%">
+				<input type="number" name="ticket_min" id="" placeholder="最少投几票" value="{{$vote -> ticket_min}}" class="input-text" style=" width:20%">
+				<input type="number" name="ticket_max" id="" placeholder="最多投几票" value="{{$vote -> ticket_max}}" class="input-text" style=" width:20%">
 			</div>
 		</div>
 
@@ -79,7 +79,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">投票说明：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="content" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,10)"></textarea>
+				<textarea name="content" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,10)">{{$vote -> content}}</textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/500</p>
 			</div>
 		</div>
@@ -87,11 +87,11 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>显示：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input name="status" type="radio" id="sex-1" checked value="2">
+					<input name="status" type="radio" id="sex-1" @if($vote -> status == 2) checked @endif value="2">
 					<label for="sex-3">是</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" id="sex-2" name="status" value="1">
+					<input type="radio" id="sex-2" name="status" value="1" @if($vote -> status == 1) checked @endif >
 					<label for="sex-2">否</label>
 				</div>
 			</div>

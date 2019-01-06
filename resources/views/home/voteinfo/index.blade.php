@@ -119,7 +119,7 @@
 				<!-- 内容 -->
 				<ul class="list-group">
 					@foreach($comment as $row)
-					<li class="list-group-item ucontent"><span  class="text-info">{{$row -> nickname}}</span>：{{$row -> content}}</li>
+					<li class="list-group-item ucontent"><span  class="text-info">{{$row['nickname']}}</span>：{{$row['content']}}</li>
 					@endforeach
 				</ul>
 			</div>
