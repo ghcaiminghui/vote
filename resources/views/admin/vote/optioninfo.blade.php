@@ -24,79 +24,24 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>新增投票</title>
+<title>添加候选人说明</title>
 </head>
 <body>
 <article class="page-container">
 	<form action="" method="post" class="form form-horizontal" id="form-member-add">
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票主题：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text"  placeholder="请输入投票的标题" name="title">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">投票简介：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="intro" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,10)"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/250</p>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票类型：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input type="radio" id="type2" name="type" checked value="2">
-					<label for="sex-2">多选</label>
-				</div>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>票量限制：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<input type="number" name="ticket_min" id="" placeholder="最少投几票" value="" class="input-text" style=" width:20%">
-				<input type="number" name="ticket_max" id="" placeholder="最多投几票" value="" class="input-text" style=" width:20%">
-			</div>
-		</div>
-
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票侯选项：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="请输入候选人" name="vote_name[]">
-			</div>
-		</div>
-		<div class="row cl option">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票侯选项：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="请输入候选人" name="vote_name[]">
-			</div>
-		</div>
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary size-M radius addOption" type="button" value="添加候选人">
-				<input class="btn btn-primary size-M radius addbr" type="button" value="添加换行符">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">投票说明：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="content" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/500</p>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>显示：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="status" type="radio" id="sex-1" checked value="2">
-					<label for="sex-3">是</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="sex-2" name="status" value="1">
-					<label for="sex-2">否</label>
-				</div>
-			</div>
-		</div>
+		@foreach($votelist as $row)
+			@foreach($option as $val)
+				@if($val->vote_id == $row -> id)
+					<div class="row cl">
+						<label class="form-label col-xs-4 col-sm-3">{{$row->title}}&nbsp;&nbsp;{{$val->vote_name}}：</label>
+						<div class="formControls col-xs-8 col-sm-9">
+							<textarea name="option_content{{$val->id}}" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符">{{$val -> option_content}}</textarea>
+							<p class="textarea-numberbar"><em class="textarea-length">0</em>/250</p>
+						</div>
+					</div>
+				@endif
+			@endforeach
+		@endforeach
 		{{csrf_field()}}
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
@@ -126,24 +71,6 @@ $(function(){
 	});
 	
 	$("#form-member-add").validate({
-		rules:{
-			username:{
-				required:true,
-			},
-			ticket_min:{
-				required:true,
-			},
-			ticket_max:{
-				required:true,
-			},
-			status:{
-				required:true,
-			},
-			title:{
-				required:true,
-			},
-			
-		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",

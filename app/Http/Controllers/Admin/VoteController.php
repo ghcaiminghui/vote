@@ -98,4 +98,31 @@ class VoteController extends Controller
 
         return view('admin.vote.update',compact('vote'));
     }
+
+    //添加候选人说明
+    public function optioninfo(Request $request)
+    {
+        if( $request -> isMethod('post') ){
+ 
+            $data = $request -> except('_token');
+
+            foreach($data as $key => $val){
+
+                $k = substr($key,14);
+                //执行添加
+                Vote_option::where('id',$k) -> update(['option_content' => $val]);
+            }
+
+            return '1';
+
+        }else{
+
+            //获取所有的主题信息
+            $votelist = Vote::get();
+            //获取所有的候选人
+            $option = Vote_option::get();
+
+            return view('admin.vote.optioninfo',compact('votelist','option'));
+        }
+    }
 }

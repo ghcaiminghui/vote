@@ -46,7 +46,7 @@
 		<!-- 投票主题 -->
       	<div class="jumbotron">
 	        <h1>{{$vote -> title}}</h1>
-	        <p>{{$vote -> content}}</p>
+	        <p>{!!$vote -> content!!}</p>
       	</div>
 
       	

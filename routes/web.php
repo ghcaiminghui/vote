@@ -46,7 +46,8 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'] , function(){
 	Route::post('/vote/delete','Admin\VoteController@delete');
 	//投票管理(编辑主题)
 	Route::any('/vote/update','Admin\VoteController@update');
-
+	//投票管理(添加候选人说明)
+	Route::any('/vote/optioninfo','Admin\VoteController@optioninfo');
 
 	//评论管理
 	Route::any('/comment/index','Admin\CommentController@index');
