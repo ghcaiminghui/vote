@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Admin\User;
+
 class UserController extends Controller
-{
+{   
+    //用于显示用户模块的首页
     public function index(Request $request)
     {
 
