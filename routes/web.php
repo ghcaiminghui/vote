@@ -34,7 +34,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'] , function(){
 	Route::get('/manager/update','Admin\ManagerController@update');
 	Route::post('/manager/store','Admin\ManagerController@store');
 	//用户管理
-	Route::get('/user/index','Admin\UserController@index');
+	Route::any('/user/index','Admin\UserController@index');
 	Route::any('/user/create','Admin\UserController@create');
 	//用户管理(批量添加)
 	Route::any('/user/insert','Admin\UserController@insert');

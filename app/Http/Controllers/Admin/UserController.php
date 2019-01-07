@@ -7,13 +7,26 @@ use App\Http\Controllers\Controller;
 use App\Admin\User;
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        //获取所有用户
-        $data = User::get();
 
-        //用户列表
-        return view('admin.user.index',compact('data'));
+        if( $request -> isMethod('post') ){
+
+            $id = $request -> input('id');
+
+            if (User::where('id',$id) -> delete() ){
+
+                return '1';
+            }
+
+        }else{
+
+            //获取所有用户
+            $data = User::get();
+
+            //用户列表
+            return view('admin.user.index',compact('data'));
+        }
     }
 
   	//加载添加页面
