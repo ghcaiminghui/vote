@@ -63,50 +63,57 @@ class voteinfoController extends Controller
             $data['vote_id'] = $request ->input('vote_id');
             $data['vote_option_id'] = $request ->input('val');
 
-            //判断用户是否已经投过票了
-            if( !Count_num::where('user_id',$data['user_id']) -> where('vote_id',$data['vote_id']) ->  first()){
+            //判断主题活动是否启用状态
+            if( $vote = Vote::where('id',$data['vote_id']) -> where('status','2') -> first() ){
 
-                //获取该主题的限制值
-                $restrict = Vote::where('id',$data['vote_id']) ->select('ticket_max','ticket_min','total') -> first();
+                //判断用户是否已经投过票了
+                if( !Count_num::where('user_id',$data['user_id']) -> where('vote_id',$data['vote_id']) ->  first()){
 
-                //计算客户传过来多少个候选人
-                $num = count($data['vote_option_id']);
 
-                //统计val数组有多少个值,不能大于限制值
-                if( $num >= $restrict->ticket_min  && $num <= $restrict->ticket_max ){
+                    //计算客户传过来多少个候选人
+                    $num = count($data['vote_option_id']);
 
-                    //将传过来的值转换成字符串
-                    $data['vote_option_id'] = implode(',',$data['vote_option_id']);
+                    //控制投票主题的投票上限
+                    if( $num >= $vote->ticket_min  && $num <= $vote->ticket_max ){
 
-                    //将数据写入到统计表
-                    if( Count_num::create($data) ){
+                        //将传过来的值转换成字符串
+                        $data['vote_option_id'] = implode(',',$data['vote_option_id']);
 
-                        //每一人投票就往主题表total自增1,用于统计主题的投票人数
-                        $restrict -> where('id',$data['vote_id']) -> increment('total',1);
+                        //将数据写入到统计表
+                        if( Count_num::create($data) ){
 
-                        //遍历选手值,批量增加候选人表的ID值
-                        foreach( $request ->input('val') as $val){
+                            //每一人投票就往主题表total自增1,用于统计主题的投票人数
+                            $vote -> where('id',$data['vote_id']) -> increment('total',1);
 
-                           Vote_option::where('id',$val) -> increment('total',1);
+                            //遍历选手值,批量增加候选人表的ID值
+                            foreach( $request ->input('val') as $val){
+
+                               Vote_option::where('id',$val) -> increment('total',1);
+                            }
+
+                            //投票成功之前写入投票的session信息(用于判断用户是否已投票)
+                            $request -> session() -> push('voteRecord',$data['vote_id']);
+
+                            //投票成功
+                            return response() -> json(['msg' => '1']);
                         }
+                       
+                    }else{
 
-                        //投票成功之前写入投票的session信息(用于判断用户是否已投票)
-                        $request -> session() -> push('voteRecord',$data['vote_id']);
-
-                        //投票成功
-                        return response() -> json(['msg' => '1']);
+                        //超过限制值
+                        return response() -> json(['msg' => '4']);
                     }
-                   
+
+                //已经投过票了
                 }else{
 
-                    //超过限制值
-                    return response() -> json(['msg' => '4']);
+                    return response() -> json(['msg' => '2']);
                 }
 
-            //已经投过票了
+            //投票主题处于禁用状态
             }else{
 
-                return response() -> json(['msg' => '2']);
+                return response() -> json(['msg' => '5']);
             }
     
 

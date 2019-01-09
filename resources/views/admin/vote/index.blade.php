@@ -50,16 +50,16 @@
 				<td>{{$row -> content}}</td>
 				<td class="td-status">
 					@if($row -> status == '2')
-					<span class="label label-success radius">已显示</span>
+					<span class="label label-success radius">已启动投票</span>
 					@else
-					<span class="label radius">已隐藏</span>
+					<span class="label radius">已停止投票</span>
 					@endif
 				</td>
 				<td class="td-manage">
 					@if($row -> status == '2')
-					<a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="隐藏"><i class="Hui-iconfont">&#xe631;</i></a>
+					<a style="text-decoration:none" onClick="member_stop(this,'{{$row -> id}}')" href="javascript:;" title="停止投票"><i class="Hui-iconfont">&#xe631;</i></a>
 					@else
-					<a style="text-decoration:none" onClick="admin_start(this,'10001')" href="javascript:;" title="显示"><i class="Hui-iconfont">&#xe615;</i></a>
+					<a style="text-decoration:none" onClick="member_start(this,'{{$row -> id}}')" href="javascript:;" title="启动投票"><i class="Hui-iconfont">&#xe615;</i></a>
 					@endif  
 					<a title="编辑" href="javascript:;" onclick="member_edit('编辑主题','/admin/vote/update?id={{$row->id}}','{{$row -> id}}','','600')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>  <a title="删除" href="javascript:;" onclick="member_del(this,'{{$row->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
@@ -100,18 +100,23 @@ function member_add(title,url,w,h){
 function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
-/*用户-停用*/
+/*主题-停用*/
 function member_stop(obj,id){
 	layer.confirm('确认要停用吗？',function(index){
 		$.ajax({
 			type: 'POST',
 			url: '',
 			dataType: 'json',
+			data:{'stop_id':id},
 			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
-				$(obj).remove();
-				layer.msg('已停用!',{icon: 5,time:1000});
+				if(data == '1'){
+
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,'+id+')" href="javascript:;" title="启用投票"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用投票</span>');
+					$(obj).remove();
+					layer.msg('已停用投票!',{icon: 5,time:1000});
+				}
+
 			},
 			error:function(data) {
 				console.log(data.msg);
@@ -120,18 +125,21 @@ function member_stop(obj,id){
 	});
 }
 
-/*用户-启用*/
+/*主题-启用*/
 function member_start(obj,id){
 	layer.confirm('确认要启用吗？',function(index){
 		$.ajax({
 			type: 'POST',
 			url: '',
 			dataType: 'json',
+			data:{'start_id':id},
 			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-				$(obj).remove();
-				layer.msg('已启用!',{icon: 6,time:1000});
+				if(data == '1'){
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,'+id+')" href="javascript:;" title="停用投票"><i class="Hui-iconfont">&#xe631;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用投票</span>');
+					$(obj).remove();
+					layer.msg('已启用投票!',{icon: 6,time:1000});
+				}
 			},
 			error:function(data) {
 				console.log(data.msg);

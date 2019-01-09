@@ -141,46 +141,55 @@
 		var num = 0;
 		var val = [];
 
-		$('.vote').click(function(){
-			//循环checkbox框
-			$('input[type="checkbox"]').each(function(index, domEle){
-				//判断checked是否被选中
-				if( $(this).attr('checked') ){
+		@if($vote -> status == '2')
 
-					num += 1;
-					val.push($(this).val());
-				}
+			$('.vote').click(function(){
+				//循环checkbox框
+				$('input[type="checkbox"]').each(function(index, domEle){
+					//判断checked是否被选中
+					if( $(this).attr('checked') ){
 
-			});
-
-			//判断是否大于或者小于限定值
-			if(num >= optionMin && num <= optionMax){
-
-				$(this).html('已投票').attr('disabled',true);
-				
-				$.post('/home/voteinfo/check',{'val':val,vote_id:"{{$vote -> id}}",'uid':"{{session('id')}}"},function(data){
-
-					if(data.msg == '2'){
-
-						layer.alert('投票失败,该主题你已投票');
-					}else if(data.msg == '1'){
-
-						layer.alert('投票成功');
-					}else if(data.msg == '4'){
-
-						layer.alert('投票失败,投票数不能小于' + optionMin + '票或大于' + optionMax + '票.' );
-					}else{
-
-						layer.alert('非法操作' );
+						num += 1;
+						val.push($(this).val());
 					}
+
 				});
 
-			}else{
-				num = 0;
-				val = [];
-				layer.alert('投票失败,投票数不能小于' + optionMin + '票或大于' + optionMax + '票.' );
-			}
-		}); 
+				//判断是否大于或者小于限定值
+				if(num >= optionMin && num <= optionMax){
+
+					$(this).html('已投票').attr('disabled',true);
+					
+					$.post('/home/voteinfo/check',{'val':val,vote_id:"{{$vote -> id}}",'uid':"{{session('id')}}"},function(data){
+
+						if(data.msg == '2'){
+
+							layer.alert('投票失败,该主题你已投票');
+						}else if(data.msg == '1'){
+
+							layer.alert('投票成功');
+						}else if(data.msg == '4'){
+
+							layer.alert('投票失败,投票数不能小于' + optionMin + '票或大于' + optionMax + '票.' );
+						}else if(data.msg == '5'){
+
+							layer.alert('很抱歉活动已停止');
+						}else{
+
+							layer.alert('非法操作' );
+						}
+					});
+
+				}else{
+					num = 0;
+					val = [];
+					layer.alert('投票失败,投票数不能小于' + optionMin + '票或大于' + optionMax + '票.' );
+				}
+			}); 
+
+		@else
+		$('.vote').html('很抱歉活动已停止').attr('disabled',true);
+		@endif
 
 		//点击发表评论
 		$('.comment').click(function(){

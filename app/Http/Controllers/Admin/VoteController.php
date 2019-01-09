@@ -12,15 +12,38 @@ use App\Admin\Vote_option;
 class VoteController extends Controller
 {
 	//投票的列表
-	public function index()
+	public function index(Request $request)
 	{
-		//获取所有的主题信息
-		$votelist = Vote::get();
-		//获取记录数
-		$num = Vote::get()->count();
 
-		//加载视图,分配数据
-		return view('admin.vote.index',compact('votelist','num'));
+        //判断用户是否是提交启用主题投票或停止投票
+        if( $request -> isMethod('post') ){
+
+            if ($id = $request -> input('stop_id') ){
+
+                Vote::where('id',$id) -> update( ['status'=>'1'] );
+
+            }
+
+            if ($id = $request -> input('start_id') ){
+
+                Vote::where('id',$id) -> update( ['status'=>'2'] );
+            }
+
+            //修改状态成功
+            return '1';
+
+        }else{
+
+            //获取所有的主题信息
+            $votelist = Vote::get();
+            //获取记录数
+            $num = Vote::get()->count();
+
+            //加载视图,分配数据
+            return view('admin.vote.index',compact('votelist','num'));
+        }
+
+		
 	}
 
     //创建投票主题

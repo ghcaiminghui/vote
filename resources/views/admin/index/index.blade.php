@@ -84,7 +84,6 @@
 			<dt><i class="Hui-iconfont">&#xe621;</i> 数据统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/admin/counting/index" data-title="用户投票情况" href="javascript:void(0)">用户投票情况</a></li>
 					<li><a data-href="/admin/counting/show" data-title="主题投票情况" href="javascript:void(0)">主题投票情况</a></li>
 				</ul>
 			</dd>

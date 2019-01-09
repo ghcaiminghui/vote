@@ -40,7 +40,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'] , function(){
 	Route::any('/user/insert','Admin\UserController@insert');
 
 	//投票管理
-	Route::get('/vote/index','Admin\VoteController@index');
+	Route::any('/vote/index','Admin\VoteController@index');
 	Route::any('/vote/create','Admin\VoteController@create');
 	//投票管理删除主题
 	Route::post('/vote/delete','Admin\VoteController@delete');
