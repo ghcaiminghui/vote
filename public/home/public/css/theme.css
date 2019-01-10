@@ -26,3 +26,7 @@ body {
 .vote{
  margin-left: 10px;
 }
+
+.marketing h4 label{
+	padding-left: 20px;
+}

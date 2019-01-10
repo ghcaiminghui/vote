@@ -28,19 +28,29 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-member-add">
-		@foreach($votelist as $row)
-			@foreach($option as $val)
-				@if($val->vote_id == $row -> id)
-					<div class="row cl">
-						<label class="form-label col-xs-4 col-sm-3">{{$row->title}}&nbsp;&nbsp;{{$val->vote_name}}：</label>
-						<div class="formControls col-xs-8 col-sm-9">
-							<textarea name="option_content{{$val->id}}" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符">{{$val -> option_content}}</textarea>
-							<p class="textarea-numberbar"><em class="textarea-length">0</em>/250</p>
-						</div>
-					</div>
-				@endif
-			@endforeach
+	<form class="form form-horizontal" id="form-member-add">
+		@foreach($option as $row)
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>候选项：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{{$row -> vote_name}}" placeholder="" name="vote_name[]">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">简介：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="option_content[]" cols="" rows="" class="textarea"  placeholder="显示用户名下" dragonfly="true" >{{$row -> option_content}}</textarea>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">详细介绍：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="model_content[]" cols="" rows="" class="textarea"  placeholder="用于弹窗显示" dragonfly="true" >{{$row -> model_content}}</textarea>
+				
+			</div>
+		</div>
+		<input type="hidden" name="oid[]" value="{{$row->id}}">
+		<br><br>
 		@endforeach
 		{{csrf_field()}}
 		<div class="row cl">
@@ -48,6 +58,7 @@
 				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 			</div>
 		</div>
+
 	</form>
 </article>
 
@@ -64,6 +75,7 @@
 <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 $(function(){
+
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
 		radioClass: 'iradio-blue',
@@ -82,11 +94,11 @@ $(function(){
 
 					if(data == '1'){
 
-						layer.msg('添加成功!',{icon:1,time:2000},function(){
+						layer.msg('修改成功!',{icon:1,time:1000},function(){
 
 							var index = parent.layer.getFrameIndex(window.name);
 							parent.$('.btn-refresh').click();
-							parent.location.reload();
+							parent.layer.close(index);
 						});
 					}else if(data == '2'){
 
@@ -103,18 +115,6 @@ $(function(){
 			});
 		}
 	});
-
-	//点击添加文本框
-    $('.addOption').click(function () {
-        $('.option').after( 	'	<div class="row cl"><label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票侯选项：</label><div class="formControls col-xs-8 col-sm-9"><input type="text" class="input-text" value="" placeholder="请输入候选人" name="vote_name[]"></div></div> ' );
-    });
-
-    //点击添加换行
-    $('.addbr').click(function(){
-
-    	var content = $('textarea[name=content]').val();
-    	$('textarea[name=content]').val(content + '<br>'); 
-    });
 
 });
 </script> 

@@ -123,4 +123,14 @@ class voteinfoController extends Controller
             return response() -> json(['msg' => '3']);
         }
     }
+
+    public function model(Request $request)
+    {
+
+        $id = $request -> input('id');
+
+        $model = Vote_option::where('id',$id) -> select('model_content','vote_name') -> first();
+
+        return response() -> json(['msg' => $model->model_content,'title'=>$model->vote_name]);
+    }
 }

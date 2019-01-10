@@ -128,24 +128,21 @@ class VoteController extends Controller
         if( $request -> isMethod('post') ){
  
             $data = $request -> except('_token');
+            $id = array_pop($data);
+            $num = 0;
+            foreach($data['oid'] as $key => $value){
 
-            foreach($data as $key => $val){
-
-                $k = substr($key,14);
-                //执行添加
-                Vote_option::where('id',$k) -> update(['option_content' => $val]);
+                Vote_option::where('id',$value) -> update([ 'vote_name'=>$data['vote_name'][$key], 'option_content' => $data['option_content'][$key],'model_content' => $data['model_content'][$key] ]);
             }
 
             return '1';
 
         }else{
 
-            //获取所有的主题信息
-            $votelist = Vote::get();
-            //获取所有的候选人
-            $option = Vote_option::get();
+            //获取该主题下的所有候选项
+            $option = Vote_option::where( 'vote_id',$request ->input('id') ) -> get();
 
-            return view('admin.vote.optioninfo',compact('votelist','option'));
+            return view('admin.vote.optioninfo',compact('option'));
         }
     }
 }

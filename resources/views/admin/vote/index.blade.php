@@ -26,7 +26,7 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 投票管理 <span class="c-gray en">&gt;</span> 我的主题 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="member_add('新增主题','/admin/vote/create','','600')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 新增主题</a> <a href="javascript:;" onclick="member_add('设置候选人说明','/admin/vote/optioninfo','','600')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 设置候选人说明</a></span> <span class="r">共有数据：<strong>{{$num or '异常错误'}}</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="member_add('新增主题','/admin/vote/create','','600')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 新增主题</a> </span> <span class="r">共有数据：<strong>{{$num or '异常错误'}}</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -37,7 +37,7 @@
 				<th width="130">投票简介</th>
 				<th width="180">投票内容</th>
 				<th width="20">显示主题</th>
-				<th width="30">操作</th>
+				<th width="50">操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -61,7 +61,9 @@
 					@else
 					<a style="text-decoration:none" onClick="member_start(this,'{{$row -> id}}')" href="javascript:;" title="启动投票"><i class="Hui-iconfont">&#xe615;</i></a>
 					@endif  
-					<a title="编辑" href="javascript:;" onclick="member_edit('编辑主题','/admin/vote/update?id={{$row->id}}','{{$row -> id}}','','600')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>  <a title="删除" href="javascript:;" onclick="member_del(this,'{{$row->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<a title="编辑主题" href="javascript:;" onclick="member_edit('编辑主题','/admin/vote/update?id={{$row->id}}','{{$row -> id}}','','600')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+					<a title="编辑候选项" href="javascript:;" onclick="member_edit('编辑候选项','/admin/vote/optioninfo?id={{$row->id}}','{{$row -> id}}','','600')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+					<a title="删除" href="javascript:;" onclick="member_del(this,'{{$row->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 			@endforeach
 		</tbody>

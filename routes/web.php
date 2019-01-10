@@ -81,4 +81,6 @@ Route::group(['prefix' => 'home', 'middleware' => 'login'],function(){
 	//用户发表评论
 	Route::post('/comment/create','Home\CommentController@create');
 
+	Route::get('/voteinfo/model','Home\VoteinfoController@model');
+
 });

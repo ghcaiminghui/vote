@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="/home/public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/home/public/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="/home/static/css/awesome-bootstrap-checkbox.css"/>
-	<link rel="stylesheet" href="/home/static/css/bootstrap.css"/>
 	<link rel="stylesheet" href="/home/static/Font-Awesome/css/font-awesome.min.css"/>
     <!-- <link rel="stylesheet" href="/home/static/css/build.css"/> -->
 	<!-- 自定义样式 -->
@@ -40,6 +39,24 @@
 		</div>
 	</nav>
 	
+	<!-- 模态框 -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 模态框结束 -->
+
 	<!-- 中间部分 -->
 	<div class="container theme-showcase " role="main">
 		
@@ -57,7 +74,7 @@
 					<h4>
 						<div class="checkbox">
 						<input type="checkbox" id="checkbox{{$row -> id}}" value="{{$row -> id}}">
-						<label for="checkbox{{$row -> id}}">{{$row -> vote_name}}</label>
+						<label name="model" for="checkbox{{$row -> id}}" >{{$row -> vote_name}}</label>
 						</div>
 					</h4>
           			<p>{{$row -> option_content}}</p>
@@ -72,10 +89,11 @@
 					<h4>
 						<div class="checkbox">
 						<input type="checkbox" id="checkbox{{$row -> id}}" value="{{$row -> id}}">
-						<label for="checkbox{{$row -> id}}">{{$row -> vote_name}}</label>
+						<label name="model" for="checkbox{{$row -> id}}" >{{$row -> vote_name}}</label>
 						</div>
 					</h4>
           			<p>{{$row -> option_content}}</p>
+          			         			          			
 				@endif
 			@endforeach
         </div>
@@ -103,7 +121,6 @@
 	                <span class="input-group-btn"><input type="button" value="发表评论" class="btn btn-info comment"></span>
 	            </div>
 	        </div>
-		
 			<div class="clearfix"></div>
 
 			<!-- 评论内容 -->
@@ -141,6 +158,25 @@
 		var num = 0;
 		var val = [];
 
+		//model
+		$('label[name=model]').click(function(){
+
+			var id = $(this).attr('for').substring(8);
+			var label = $(this);
+			$.get('/home/voteinfo/model',{id:id},function(data){
+
+				if(data.msg != null){
+								
+					$('#myModalLabel').html(data.title);
+					$('.modal-body').html(data.msg);
+					$('#myModal').modal('show');
+				}
+			},'json');
+
+		});
+
+		
+		//stop_vote
 		@if($vote -> status == '2')
 
 			$('.vote').click(function(){
@@ -217,7 +253,6 @@
 					}
 				});
 			}
-
 		});
 
 	});
