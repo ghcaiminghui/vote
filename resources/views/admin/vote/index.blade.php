@@ -62,7 +62,7 @@
 					<a style="text-decoration:none" onClick="member_start(this,'{{$row -> id}}')" href="javascript:;" title="启动投票"><i class="Hui-iconfont">&#xe615;</i></a>
 					@endif  
 					<a title="编辑主题" href="javascript:;" onclick="member_edit('编辑主题','/admin/vote/update?id={{$row->id}}','{{$row -> id}}','','600')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
-					<a title="编辑候选项" href="javascript:;" onclick="member_edit('编辑候选项','/admin/vote/optioninfo?id={{$row->id}}','{{$row -> id}}','','600')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+					<a title="编辑候选项" href="javascript:;" onclick="member_edit('编辑候选项','/admin/vote/optioninfo?id={{$row->id}}','{{$row -> id}}','','600')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe62b;</i></a>
 					<a title="删除" href="javascript:;" onclick="member_del(this,'{{$row->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 			@endforeach

@@ -41,9 +41,7 @@ class VoteController extends Controller
 
             //加载视图,分配数据
             return view('admin.vote.index',compact('votelist','num'));
-        }
-
-		
+        }		
 	}
 
     //创建投票主题
