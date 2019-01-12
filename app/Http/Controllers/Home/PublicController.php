@@ -39,7 +39,7 @@ class PublicController extends Controller
     	]);
 
     	//判断用户名是否存在
-    	if( $userinfo = User::where('username',$username) -> first()){
+    	if( $userinfo = User::where('username',$username) ->where('status',2) -> first()){
 
     		//判断用户密码是否正确
     		if ($userinfo -> password == $password){

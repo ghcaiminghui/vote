@@ -14,6 +14,22 @@ class UserController extends Controller
 
         if( $request -> isMethod('post') ){
 
+            //判断停止用户的值是否存在            
+            if( $stop = $request -> input('stop') ){
+
+                User::where('id',$stop) -> update(['status' => '1']);
+
+                return '1';
+            }
+
+            //判断启用用户的值
+            if( $start = $request -> input('start') ){
+
+                User::where('id',$start) -> update(['status' => '2']);
+
+                return '1';
+            }
+
             $id = $request -> input('id');
 
             if (User::where('id',$id) -> delete() ){

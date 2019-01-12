@@ -111,13 +111,53 @@ class VoteController extends Controller
     public function update(Request $request)
     {
 
-        //获取修改主题的ID
-        $id = $request -> input('id');
+        if ($request -> isMethod('post') ){
 
-        //查询该主题的信息
-        $vote = Vote::where('id',$id) -> first();
+            //接收主题信息
+            $vote = $request -> only(['title','intro','type','ticket_min','ticket_max','content','status']);
 
-        return view('admin.vote.update',compact('vote'));
+            //根据ID更新主题信息
+            if( Vote::where('id',$request->input('id')) -> update($vote) ){
+
+                return '1';
+            }
+
+            //更新原有的候选项
+            $vote_option = $request -> except(['title','intro','type','ticket_min','ticket_max','content','status','vote_name','id','_token']);
+
+            foreach($vote_option as $key => $value){
+
+                $id = substr($key,9);
+
+                Vote_option::where('vote_id',$request->input('id')) -> where('id',$id) -> update(['vote_name'=>$value]);
+
+            }
+
+            //如有新添加候选项，则执行添加操作
+            if($request -> has('vote_name')){
+
+                foreach($request -> input('vote_name') as $value){
+
+                    Vote_option::create(['vote_name'=>$value,'vote_id'=>$request->id]);
+                }
+            }
+
+            return '1';
+
+
+        }else{
+
+            //查询该主题的信息
+            $vote = Vote::where( 'id',$request -> input('id') ) -> first();
+
+            //查询该主题的下选项信息
+            $option = $vote -> vote_option() -> where('vote_id',$vote->id) -> get();
+
+            return view('admin.vote.update',compact('vote','option'));
+        }
+
+        
+        
     }
 
     //添加候选人说明

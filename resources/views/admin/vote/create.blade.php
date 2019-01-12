@@ -38,8 +38,8 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">投票简介：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="intro" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,10)"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/250</p>
+				<textarea name="intro" cols="" rows="" class="textarea"  placeholder="投票首页展示的简介" ></textarea>
+				
 			</div>
 		</div>
 		<div class="row cl">
@@ -65,13 +65,13 @@
 				<input type="text" class="input-text" value="" placeholder="请输入候选人" name="vote_name[]">
 			</div>
 		</div>
-		<div class="row cl option">
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票侯选项：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="请输入候选人" name="vote_name[]">
 			</div>
 		</div>
-		<div class="row cl">
+		<div class="row cl option">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 				<input class="btn btn-primary size-M radius addOption" type="button" value="添加候选人">
 				<input class="btn btn-primary size-M radius addbr" type="button" value="添加换行符">
@@ -80,8 +80,8 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">投票说明：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="content" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/500</p>
+				<textarea name="content" cols="" rows="" class="textarea"  placeholder="投票内容页的展示内容"></textarea>
+				
 			</div>
 		</div>
 		<div class="row cl">
@@ -179,7 +179,7 @@ $(function(){
 
 	//点击添加文本框
     $('.addOption').click(function () {
-        $('.option').after( 	'	<div class="row cl"><label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票侯选项：</label><div class="formControls col-xs-8 col-sm-9"><input type="text" class="input-text" value="" placeholder="请输入候选人" name="vote_name[]"></div></div> ' );
+        $('.option').before( 	'	<div class="row cl"><label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票侯选项：</label><div class="formControls col-xs-8 col-sm-9"><input type="text" class="input-text" value="" placeholder="请输入候选人" name="vote_name[]"></div></div> ' );
     });
 
     //点击添加换行

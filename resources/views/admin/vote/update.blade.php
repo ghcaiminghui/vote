@@ -38,8 +38,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">投票简介：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="intro" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,10)">{{$vote -> intro}}</textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/250</p>
+				<textarea name="intro" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" >{{$vote -> intro}}</textarea>
 			</div>
 		</div>
 		<div class="row cl">
@@ -58,20 +57,15 @@
 				<input type="number" name="ticket_max" id="" placeholder="最多投几票" value="{{$vote -> ticket_max}}" class="input-text" style=" width:20%">
 			</div>
 		</div>
-
+		@foreach($option as $row)
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票侯选项：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="请输入候选人" name="vote_name[]">
+				<input type="text" class="input-text" value="{{$row -> vote_name}}" placeholder="请输入候选人" name="vote_name{{$row->id}}">
 			</div>
 		</div>
+		@endforeach
 		<div class="row cl option">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票侯选项：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="请输入候选人" name="vote_name[]">
-			</div>
-		</div>
-		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 				<input class="btn btn-primary size-M radius addOption" type="button" value="添加候选人">
 			</div>
@@ -79,8 +73,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">投票说明：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="content" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,10)">{{$vote -> content}}</textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/500</p>
+				<textarea name="content" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" >{{$vote -> content}}</textarea>
 			</div>
 		</div>
 		<div class="row cl">
@@ -126,26 +119,15 @@ $(function(){
 	
 	$("#form-member-add").validate({
 		rules:{
-			username:{
-				required:true,
-				minlength:2,
-				maxlength:16
-			},
-			sex:{
+			title:{
 				required:true,
 			},
-			mobile:{
-				required:true,
-				isMobile:true,
-			},
-			email:{
-				required:true,
-				email:true,
-			},
-			uploadfile:{
+			ticket_min:{
 				required:true,
 			},
-			
+			ticket_max:{
+				required:true,
+			},		
 		},
 		onkeyup:false,
 		focusCleanup:true,
@@ -182,7 +164,7 @@ $(function(){
 
 	//点击添加文本框
     $('.addOption').click(function () {
-        $('.option').after( 	'	<div class="row cl"><label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票侯选项：</label><div class="formControls col-xs-8 col-sm-9"><input type="text" class="input-text" value="" placeholder="请输入候选人" name="vote_name[]"></div></div> ' );
+        $('.option').before( 	'	<div class="row cl"><label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票侯选项：</label><div class="formControls col-xs-8 col-sm-9"><input type="text" class="input-text" value="" placeholder="请输入候选人" name="vote_name[]"></div></div> ' );
     });
 
 });
