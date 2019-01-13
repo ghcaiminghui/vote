@@ -135,6 +135,7 @@
 				</div>
 				<!-- 内容 -->
 				<ul class="list-group">
+					<li class="ucontent" style="list-style: none;"></li>
 					@foreach($comment as $row)
 					<li class="list-group-item ucontent"><span  class="text-info">{{$row['nickname']}}</span>：{{$row['content']}}</li>
 					@endforeach
@@ -246,7 +247,10 @@
 						layer.alert('发表成功');
 						$('input[name=nickname]').val('');
 						$('input[name=content]').val('');
-						$('.ucontent').last().after('<li class="list-group-item ucontent"><span  class="text-info">'+ nickname +'</span>：'+ content +'</li>')
+						@if(!$comment)
+						$('.CommentList').empty();
+						@endif
+						$('.ucontent').last().after('<li class="list-group-item ucontent"><span  class="text-info">'+ nickname +'</span>：'+ content +'</li>');
 					}else if( data == '2'){
 
 						layer.alert('评论失败,请刷新浏览器再试！！');
