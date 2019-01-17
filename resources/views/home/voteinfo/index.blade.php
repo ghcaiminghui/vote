@@ -1,44 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<title>广东信达投票系统</title>
-	<link rel="stylesheet" href="/home/public/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/home/public/css/bootstrap-theme.min.css">
+@extends('home.public.head')
+
+
+@section('csrf')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
+
+@section('title','投票详情')
+
+
+@section('css')
 	<link rel="stylesheet" href="/home/static/css/awesome-bootstrap-checkbox.css"/>
 	<link rel="stylesheet" href="/home/static/Font-Awesome/css/font-awesome.min.css"/>
-    <!-- <link rel="stylesheet" href="/home/static/css/build.css"/> -->
-	<!-- 自定义样式 -->
-	<link rel="stylesheet" href="/home/public/css/theme.css">
-	<script src="/home/public/js/jquery.min.js"></script>
-	<script src="/home/public/js/bootstrap.min.js"></script>
+@endsection
 
 
-</head>
-<body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			<a class="navbar-brand" href="#">广东信达投票系统</a>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="/home/index/index">投票主题</a></li>
-					<li><a href="/home/voteresult/index">查看投票结果</a></li>
-					<li><a href="/home/public/logout">退出</a></li>
-				</ul>
-			</div><!--/.nav-collapse -->
-		</div>
-	</nav>
-	
+@section('main')
 	<!-- 模态框 -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
@@ -74,7 +51,7 @@
 					<h4>
 						<div class="checkbox">
 						<input type="checkbox" id="checkbox{{$row -> id}}" value="{{$row -> id}}">
-						<label name="model" for="checkbox{{$row -> id}}" >{{$row -> vote_name}}</label>
+						<label><span name="model" for="checkbox{{$row -> id}}">{{$row -> vote_name}}</span></label>
 						</div>
 					</h4>
           			<p>{{$row -> option_content}}</p>
@@ -89,7 +66,7 @@
 					<h4>
 						<div class="checkbox">
 						<input type="checkbox" id="checkbox{{$row -> id}}" value="{{$row -> id}}">
-						<label name="model" for="checkbox{{$row -> id}}" >{{$row -> vote_name}}</label>
+						<label><span name="model" for="checkbox{{$row -> id}}">{{$row -> vote_name}}</span></label>
 						</div>
 					</h4>
           			<p>{{$row -> option_content}}</p>
@@ -147,7 +124,10 @@
 		<!-- 评论栏目结束 -->
 	</div>
 	<!-- 中间部分结束 -->
-</body>
+@endsection
+
+
+@section('javascript')
 <script type="text/javascript" src="/admin/lib/layer/2.4/layer.js"></script>
 <script>
 	$(function(){
@@ -160,7 +140,7 @@
 		var val = [];
 
 		//model
-		$('label[name=model]').click(function(){
+		$('span[name=model]').click(function(){
 
 			var id = $(this).attr('for').substring(8);
 			var label = $(this);
@@ -261,4 +241,4 @@
 
 	});
 </script>
-</html>
+@endsection

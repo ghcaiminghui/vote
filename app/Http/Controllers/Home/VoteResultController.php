@@ -13,11 +13,11 @@ class VoteResultController extends Controller
     public function index()
     {
     	//获取所有启用投票主题
-    	$vote = Vote::get();
+    	$ment = Vote::select('id','title','intro') -> get();
 
     	//获取所有的候选项
     	$vote_option = Vote_option::get();
 
-    	return view('home.voteresult.index',compact('vote','vote_option'));
+    	return view('home.voteresult.index',compact('ment','vote_option'));
     }
 }

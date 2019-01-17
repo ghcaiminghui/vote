@@ -13,8 +13,10 @@ class IndexController extends Controller
     {
 
     	//获取所有status=2的主题
-    	$vote = Vote::get(); 
+    	$ment = Vote::select('id','title') -> get();
 
-    	return view('home.index.index',compact('vote'));
+    	return view('home.index.index',compact('ment'));
     }
+
+
 }

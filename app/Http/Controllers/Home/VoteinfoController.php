@@ -40,8 +40,10 @@ class voteinfoController extends Controller
             //查询该主题下的所有评论
             $comment = $vote -> comment() -> get() ->toArray();
 
+            $ment = Vote::select('id','title','intro') -> get();
+
     		//加载投票详情页
-    		return view('home.voteinfo.index',compact('vote','vote_option','bool','comment'));
+    		return view('home.voteinfo.index',compact('vote','vote_option','bool','comment','ment'));
 
     	//否则重新跳转到投票主页
     	}else{
