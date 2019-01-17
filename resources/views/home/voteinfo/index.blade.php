@@ -83,6 +83,10 @@
 		<button type="button" class="btn btn-lg btn-success vote">投&nbsp;&nbsp;&nbsp;票</button>
 		@endif
 
+		@if($nextId)
+		&nbsp;&nbsp;&nbsp;<a href="/home/voteinfo/index?id={{$nextId}}" type="button" class="btn btn-lg btn-success">下一页</a>
+		@endif
+		
 		<hr class="col-lg-12">
 		
 		<!-- 评论栏目 -->

@@ -17,7 +17,9 @@ class voteinfoController extends Controller
     	if( $vote_id = $request -> input('id') ){
 
     		//查询该主题的内容
-    		$vote = Vote::where('id',$vote_id) -> first();
+            $vote = Vote::where('id',$vote_id) -> first();
+
+            $nextId = $vote -> where('id','>',$vote->id) -> value('id');
 
     		//查询主题下所有的候选人
     		$vote_option = $vote->vote_option() -> where('vote_id',$vote->id) -> get();
@@ -43,7 +45,7 @@ class voteinfoController extends Controller
             $ment = Vote::select('id','title','intro') -> get();
 
     		//加载投票详情页
-    		return view('home.voteinfo.index',compact('vote','vote_option','bool','comment','ment'));
+    		return view('home.voteinfo.index',compact('vote','vote_option','bool','comment','ment','nextId'));
 
     	//否则重新跳转到投票主页
     	}else{
