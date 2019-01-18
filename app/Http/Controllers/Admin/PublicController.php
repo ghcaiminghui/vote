@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use DB;
 
 
 class PublicController extends Controller
@@ -43,9 +44,28 @@ class PublicController extends Controller
     	//匹配用户和密码
     	if( Auth::guard('admin') -> attempt($data,$request -> get('online')) ){
 
+            //写入系统日志
+            DB::table('manager_log') -> insert([
+                
+                'username'     => Auth::guard('admin') -> user() -> username,
+                'username_id'  => Auth::guard('admin') -> user() -> id,
+                'addtime'      => time(),
+                'address'      => $_SERVER["REMOTE_ADDR"]
+            ]);
+
     		return redirect('/admin/index/index');
     	}else{
 
+            //写入系统日志
+            DB::table('manager_log') -> insert([
+                
+                'username'     => $data['username'],
+                'status'       => 2,
+                'addtime'      => time(),
+                'address'      => $_SERVER["REMOTE_ADDR"]
+            ]);
+
+            //跳转到登录页
     		return redirect('/admin/public/login') -> withErrors(['loginError' => '用户名或密码错误']);
     	}
 

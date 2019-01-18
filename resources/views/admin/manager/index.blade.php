@@ -17,7 +17,7 @@
     <table class="table table-border table-bordered table-bg">
       <thead>
         <tr>
-          <th colspan="2">修改密码</th>
+          <th colspan="2">修改管理员密码</th>
         </tr>
       </thead>
       <tbody>

@@ -30,9 +30,12 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'] , function(){
 	//后台首页
 	Route::get('/index/index','Admin\IndexController@index');
 	Route::get('/index/welcome','Admin\IndexController@welcome');
+
 	//管理员管理
 	Route::get('/manager/update','Admin\ManagerController@update');
 	Route::post('/manager/store','Admin\ManagerController@store');
+	Route::get('/manager/log','Admin\ManagerController@log');		//系统日志
+
 	//用户管理
 	Route::any('/user/index','Admin\UserController@index');
 	Route::any('/user/create','Admin\UserController@create');
@@ -42,10 +45,13 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'] , function(){
 	//投票管理
 	Route::any('/vote/index','Admin\VoteController@index');
 	Route::any('/vote/create','Admin\VoteController@create');
+
 	//投票管理删除主题
 	Route::post('/vote/delete','Admin\VoteController@delete');
+
 	//投票管理(编辑主题)
 	Route::any('/vote/update','Admin\VoteController@update');
+
 	//投票管理(添加候选人说明)
 	Route::any('/vote/optioninfo','Admin\VoteController@optioninfo');
 

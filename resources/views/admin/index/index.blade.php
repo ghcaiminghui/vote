@@ -89,10 +89,11 @@
 			</dd>
 		</dl>
 		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/admin/manager/update" data-title="改密码" href="javascript:void(0)">修改密码</a></li>
+					<li><a data-href="/admin/manager/update" data-title="修改密码" href="javascript:void(0)">修改密码</a></li>
+					<li><a data-href="/admin/manager/log" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
 				</ul>
 			</dd>
 		</dl>
