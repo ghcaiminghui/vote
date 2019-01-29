@@ -13,7 +13,7 @@ class VoteResultController extends Controller
     public function index()
     {
     	//获取所有启用投票主题
-    	$ment = Vote::select('id','title','intro') -> get();
+    	$ment = Vote::select('id','title','intro','type') -> get();
 
     	//获取所有的候选项
     	$vote_option = Vote_option::get();

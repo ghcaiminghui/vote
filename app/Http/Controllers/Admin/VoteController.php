@@ -36,8 +36,9 @@ class VoteController extends Controller
 
             //获取所有的主题信息
             $votelist = Vote::get();
-            //获取记录数
-            $num = Vote::get()->count();
+
+            //获取总记录数
+            $num = count($votelist);
 
             //加载视图,分配数据
             return view('admin.vote.index',compact('votelist','num'));
@@ -117,11 +118,8 @@ class VoteController extends Controller
             $vote = $request -> only(['title','intro','type','ticket_min','ticket_max','content','status']);
 
             //根据ID更新主题信息
-            if( Vote::where('id',$request->input('id')) -> update($vote) ){
-
-                return '1';
-            }
-
+            Vote::where('id',$request->input('id')) -> update($vote);
+                
             //更新原有的候选项
             $vote_option = $request -> except(['title','intro','type','ticket_min','ticket_max','content','status','vote_name','id','_token']);
 
@@ -160,17 +158,23 @@ class VoteController extends Controller
         
     }
 
-    //添加候选人说明
+    //添加候选人说明和简介
     public function optioninfo(Request $request)
     {
         if( $request -> isMethod('post') ){
  
             $data = $request -> except('_token');
+
             $id = array_pop($data);
-            $num = 0;
+            
             foreach($data['oid'] as $key => $value){
 
-                Vote_option::where('id',$value) -> update([ 'vote_name'=>$data['vote_name'][$key], 'option_content' => $data['option_content'][$key],'model_content' => $data['model_content'][$key] ]);
+                Vote_option::where('id',$value) -> update([ 
+
+                    'vote_name' =>  $data['vote_name'][$key], 
+                    'option_content' => $data['option_content'][$key],
+                    'model_content' => $data['model_content'][$key] 
+                ]);
             }
 
             return '1';

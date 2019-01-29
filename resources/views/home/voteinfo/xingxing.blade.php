@@ -10,8 +10,22 @@
 
 
 @section('css')
-	<link rel="stylesheet" href="/home/static/css/awesome-bootstrap-checkbox.css"/>
-	<link rel="stylesheet" href="/home/static/Font-Awesome/css/font-awesome.min.css"/>
+	<!-- <link rel="stylesheet" type="text/css" href="/admin/static/h-ui/css/xingxing.css"> -->
+	<style type="text/css">
+		.star-bar-show{background:url(/admin/static/h-ui/images/star/iconpic-star-S-default.png) repeat-x 0 0}
+		.star-bar-show .star{background:url(/admin/static/h-ui/images/star/iconpic-star-S.png) repeat-x 0 0}
+		.star-1{width:20%}
+		.star-2{ width:40%}
+		.star-3{width:60%}
+		.star-4{ width:80%}
+		.star-5{ width:100%}
+		.star-bar-show.size-M{width:120px;height:24px}
+		.star-bar-show.size-M,.star-bar-show.size-M .star{background-size:24px}
+		.star-bar-show.size-M .star{ height:24px}
+		.star-bar-show.size-S{width:80px; height:16px}
+		.star-bar-show.size-S,.star-bar-show.size-S .star{background-size:16px}
+		.star-bar-show.size-S .star{ height:16px}
+	</style>
 @endsection
 
 
@@ -47,30 +61,31 @@
 		<!-- 左边栏目 -->
       	<div class="col-lg-6 marketing">
       		@foreach($vote_option as $key => $row)
-      	 		@if($key % 2 == 0)
-					<h4>
-						<div class="checkbox">
-						<input type="checkbox" id="checkbox{{$row -> id}}" value="{{$row -> id}}">
-						<label><span name="model" for="checkbox{{$row -> id}}">{{$row -> vote_name}}</span></label>
-						</div>
-					</h4>
-          			<p>{{$row -> option_content}}</p>
+      			@if($key % 2 == 0)
+	      		<h4>	
+		      		<div>
+						<span class="f-l f-15 va-m pull-left">{{$row -> vote_name}}：</span>
+						<div id="star-{{$row->id}}" class="pull-left "></div>
+						&nbsp;&nbsp;&nbsp;&nbsp;<strong id="{{$row->id}}" class="f-l va-m">5分</strong>
+					</div>
+				</h4>
+				<p>{{$row -> option_content}}</p>
 				@endif
 			@endforeach
         </div>
-   
+
 		<!-- 右边的栏目 -->
-        <div class="col-lg-6 marketing">
+      	<div class="col-lg-6 marketing">
       		@foreach($vote_option as $key => $row)
-      	 		@if($key % 2 != 0)
-					<h4>
-						<div class="checkbox">
-						<input type="checkbox" id="checkbox{{$row -> id}}" value="{{$row -> id}}">
-						<label><span name="model" for="checkbox{{$row -> id}}">{{$row -> vote_name}}</span></label>
-						</div>
-					</h4>
-          			<p>{{$row -> option_content}}</p>
-          			         			          			
+      			@if($key % 2 != 0)
+	      		<h4>	
+		      		<div>
+						<span class="pull-left f-l f-15 va-m">{{$row -> vote_name}}：</span>
+						<div id="star-{{$row->id}}" class="pull-left"></div>
+						&nbsp;&nbsp;&nbsp;&nbsp;<strong id="{{$row->id}}" class="f-l va-m select">5分</strong>
+					</div>
+				</h4>
+				<p>{{$row -> option_content}}</p>
 				@endif
 			@endforeach
         </div>
@@ -78,9 +93,9 @@
         <div class="clearfix"></div>
 
 		@if($bool)
-		<button type="button" class="btn btn-lg btn-success vote" disabled>已投票</button>
+		<button type="button" class="btn btn-lg btn-success vote" disabled>已评分</button>
 		@else
-		<button type="button" class="btn btn-lg btn-success vote">投&nbsp;&nbsp;&nbsp;票</button>
+		<button type="button" class="btn btn-lg btn-success vote">评&nbsp;&nbsp;&nbsp;分</button>
 		@endif
 
 		@if($nextId)
@@ -133,6 +148,8 @@
 
 @section('javascript')
 <script type="text/javascript" src="/admin/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/admin/static/h-ui/js/H-ui.js"></script>
 <script>
 	$(function(){
 
@@ -163,50 +180,35 @@
 		
 		//stop_vote
 		@if($vote -> status == '2')
-
+			var arr=[];
+			var jian=[];
 			$('.vote').click(function(){
-				//循环checkbox框
-				$('input[type="checkbox"]').each(function(index, domEle){
-					//判断checked是否被选中
-					if( $(this).attr('checked') ){
 
-						num += 1;
-						val.push($(this).val());
-					}
+				$('strong').each(function(i,n){
+
+					var id = parseInt($(this).html());
+					arr.push(id);
+					jian.push(n.id);
 
 				});
 
-				//判断是否大于或者小于限定值
-				if(num >= optionMin && num <= optionMax){
+				$.post('/home/voteinfo/checkXing',{arr:arr,jian:jian,uid:"{{session('id')}}",vote_id:'{{$vote->id}}'},function(data){
 
-					$(this).html('已投票').attr('disabled',true);
-					
-					$.post('/home/voteinfo/check',{'val':val,vote_id:"{{$vote -> id}}",'uid':"{{session('id')}}"},function(data){
+					if(data.msg == 2){
 
-						if(data.msg == '2'){
+						layer.alert('您已经评分了,无法重复评分');
+					}else if(data.msg == 1){
 
-							layer.alert('投票失败,该主题你已投票');
-						}else if(data.msg == '1'){
+						layer.alert('成功评分');
+						$('.vote').attr('disabled',true).html('已评分');
 
-							layer.alert('投票成功');
-						}else if(data.msg == '4'){
+					}else{
 
-							layer.alert('投票失败,投票数不能小于' + optionMin + '票或大于' + optionMax + '票.' );
-						}else if(data.msg == '5'){
+						layer.alert('系统出错,刷新试试！！');
+					}
+				});
+			});
 
-							layer.alert('很抱歉活动已停止');
-						}else{
-
-							layer.alert('非法操作' );
-						}
-					});
-
-				}else{
-					num = 0;
-					val = [];
-					layer.alert('投票失败,投票数不能小于' + optionMin + '票或大于' + optionMax + '票.' );
-				}
-			}); 
 
 		@else
 		$('.vote').html('很抱歉活动已停止').attr('disabled',true);
@@ -224,7 +226,7 @@
 				
 			}else{
 
-				$.post('/home/comment/create',{nickname:nickname,content:content,'user_id':"{{session('id')}}",'vote_id':"{{$vote -> id}}"},function(data){
+				$.post('/home/comment/create',{nickname:nickname,content:content,user_id:"{{session('id')}}",'vote_id':"{{$vote -> id}}"},function(data){
 
 					if( data == '1'){
 
@@ -242,6 +244,23 @@
 				});
 			}
 		});
+
+		@foreach($vote_option as $row)
+		$("#star-{{$row->id}}").raty({
+			hints: ['1','2', '3', '4', '5'],//自定义分数
+			starOff: 'iconpic-star-S-default.png',//默认灰色星星
+			starOn: 'iconpic-star-S.png',//黄色星星
+			path: '/admin/static/h-ui/images/star/',//可以是相对路径
+			number: 5,//星星数量，要和hints数组对应
+			showHalf: true,
+			score:5,
+			targetKeep : true,
+			click: function (score, evt) {//点击事件
+				//第一种方式：直接取值
+				$("#{{$row->id}}").html(score+'分');
+			}
+		});
+		@endforeach
 
 	});
 </script>

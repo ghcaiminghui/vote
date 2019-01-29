@@ -63,6 +63,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'] , function(){
 	Route::get('/counting/index','Admin\CountingController@index');
 	//票数统计(主题投票情况)
 	Route::get('/counting/show','Admin\CountingController@show');
+	Route::post('/counting/delete','Admin\CountingController@delete');//票数统计删除
 
 });
 
@@ -82,6 +83,8 @@ Route::group(['prefix' => 'home', 'middleware' => 'login'],function(){
 	Route::get('/voteinfo/index','Home\VoteinfoController@index');
 	//检查投票数据
 	Route::post('/voteinfo/check','Home\VoteinfoController@check');
+	//检查星星投票数据
+	Route::post('/voteinfo/checkXing','Home\VoteinfoController@checkXing');
 	//投票结果显示
 	Route::get('/voteresult/index','Home\VoteResultController@index');
 	//用户发表评论

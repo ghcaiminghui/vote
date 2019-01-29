@@ -16,9 +16,15 @@
 				<p>
 			        <span class="text-info">{{$val -> vote_name}}</span>
 			        <div class="progress">
+			        	@if($row -> type != 3)
 				  		<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: @if($val -> total <= 6) 6% @else {{$val->total}}% @endif">
 				    		<span>{{$val -> total}}票</span>
 				  		</div>
+				  		@else
+				  		<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: @if($val -> total_points <= 6) 6% @else {{$val->total_points}}% @endif">
+				    		<span>{{$val -> total_points}}分</span>
+				  		</div>
+				  		@endif
 					</div>
 		        </p>
         	@endif

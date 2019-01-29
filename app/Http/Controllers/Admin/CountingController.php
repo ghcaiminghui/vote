@@ -40,7 +40,7 @@ class CountingController extends Controller
 	    		$data[$key]['vote_option_id'][$k] = $name[$val];
 	    	}
     	}
-    	
+
     	return view('admin.counting.index',compact('data','vote_name'));
     }
 
@@ -56,4 +56,78 @@ class CountingController extends Controller
 
         return view('admin.counting.show',compact('vote','vote_option'));
     }
+
+    //删除主题投票记录
+    public function delete(Request $request)
+    {
+        //投票主题ID
+        $vote_id = $request -> input('id');
+
+        //用户投票记录的id
+        $cid = $request -> input('cid');
+
+        //删除主题ID的记录
+        if( $vote_id ){
+
+            //删除用户投票记录
+            Count_num::where('vote_id',$vote_id)->delete();
+
+            //将投票选项的值初始化
+            Vote_option::where('vote_id',$vote_id)->update(['total'=>0,'total_points'=>0]);
+
+            //返回成功信息
+            return response() -> json(['msg'=>1]);
+        }
+
+        //删除用户的投票记录
+        if( $cid ){
+
+            //查询用户投票记录
+            $count = Count_num::where('id',$cid)->first();
+
+            //删除用户投票记录
+            $count ->  delete();
+
+            $voteResult = explode(',',$count->vote_option_id);
+
+            //判断是星星投票还是多选投票
+            $vote = Vote::where('id',$count->vote_id)->first();
+
+            switch ($vote->type){
+
+                case 2:
+                    //多选操作
+                    foreach( $voteResult as $value){
+
+                        //投票统计票数减一
+                        Vote_option::where('id',$value)->decrement('total', 1);
+                    }
+
+                    //主题记录投票人数减一
+                    $vote -> decrement('total',1);
+
+                    //成功
+                    return response()->json(['msg'=>1]);break;
+
+                case 3:
+                    //分数转换成数组
+                    $voteScore = explode(',',$count->vote_option_score);
+
+                    $arr = array_combine($voteResult,$voteScore);
+
+                    //key是投票选项的ID,$value是评分的分数
+                    foreach($arr as $key => $value){
+
+                        Vote_option::where('id',$key)->decrement('total_points',$value);
+                    }
+
+                    //主题记录投票人数减一
+                    $vote -> decrement('total',1);
+
+                    //成功
+                    return response()->json(['msg'=>1]);break;
+            }
+        }
+    }
+
 }

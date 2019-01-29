@@ -15,9 +15,6 @@
 <link rel="stylesheet" type="text/css" href="/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/css/style.css" />
-<!--[if IE 6]>
-<script type="text/javascript" src="/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <title>批量添加</title>
 </head>
@@ -27,8 +24,7 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户账号：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="usernameArr" class="textarea"  placeholder="请输入用户账号1|用户账号2|用户账号|3,账号之间使用|竖线隔开,用户名不能重复,必须按照样式添加,否则出错。" dragonfly="true"></textarea>
-			<p class="textarea-numberbar"><em class="textarea-length">0</em>/800</p>
+			<textarea name="usernameArr" class="textarea"  placeholder="请输入用户账号1|用户账号2|用户账号|3,账号之间使用|竖线隔开。" dragonfly="true"></textarea>
 		</div>
 	</div>
 		<div class="row cl">

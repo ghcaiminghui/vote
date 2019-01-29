@@ -30,9 +30,8 @@ class UserController extends Controller
                 return '1';
             }
 
-            $id = $request -> input('id');
-
-            if (User::where('id',$id) -> delete() ){
+            //删除用户
+            if (User::where('id',$request->id) -> delete() ){
 
                 return '1';
             }
@@ -65,6 +64,7 @@ class UserController extends Controller
                 return '2';
             }else{
 
+                //插入数据
                 if(User::create($data)){
                     //添加成功返回1
                     return '1';

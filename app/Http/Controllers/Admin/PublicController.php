@@ -41,6 +41,10 @@ class PublicController extends Controller
     	//获取用户的基本信息
     	$data = $request -> only(['username','password']);
 
+        //实例化获取IP类(第三方接口)
+        $address = new \Address();
+        $ipResult = $address -> getIp($_SERVER["REMOTE_ADDR"]);
+
     	//匹配用户和密码
     	if( Auth::guard('admin') -> attempt($data,$request -> get('online')) ){
 
@@ -50,7 +54,9 @@ class PublicController extends Controller
                 'username'     => Auth::guard('admin') -> user() -> username,
                 'username_id'  => Auth::guard('admin') -> user() -> id,
                 'addtime'      => time(),
-                'address'      => $_SERVER["REMOTE_ADDR"]
+                'address'      => $_SERVER["REMOTE_ADDR"],
+                'area'         => $ipResult['area'],
+                'location'    => $ipResult['location']
             ]);
 
     		return redirect('/admin/index/index');
@@ -62,7 +68,10 @@ class PublicController extends Controller
                 'username'     => $data['username'],
                 'status'       => 2,
                 'addtime'      => time(),
-                'address'      => $_SERVER["REMOTE_ADDR"]
+                'address'      => $_SERVER["REMOTE_ADDR"],
+                'area'         => $ipResult['area'],
+                'location'    => $ipResult['location']
+
             ]);
 
             //跳转到登录页

@@ -11,5 +11,5 @@ class Vote_option extends Model
     //关闭时间戳
     public $timestamps = false;
     //设置属性
-    protected $fillable = ['vote_id','vote_name','content','model_content','total'];
+    protected $fillable = ['vote_id','vote_name','content','model_content','total','total_points'];
 }

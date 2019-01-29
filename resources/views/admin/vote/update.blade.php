@@ -42,15 +42,16 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>投票类型：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input type="radio" id="type2" name="type" checked value="2">
-					<label for="sex-2">多选</label>
-				</div>
-			</div>
+			<label class="form-label col-xs-4 col-sm-3">投票类型：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+				<select class="select" name="type" size="1">
+					<option value="1" @if($vote->type == 1) selected="" @endif>单选投票</option>
+					<option value="2" @if($vote->type == 2) selected="" @endif>多选投票</option>
+					<option value="3" @if($vote->type == 3) selected="" @endif>星星评分</option>
+				</select>
+				</span> </div>
 		</div>
-		<div class="row cl">
+		<div class="row cl limited">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>票量限制：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<input type="number" name="ticket_min" id="" placeholder="最少投几票" value="{{$vote -> ticket_min}}" class="input-text" style=" width:20%">
@@ -105,12 +106,23 @@
 <script type="text/javascript" src="/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本--> 
-<script type="text/javascript" src="/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 $(function(){
+	$('.limited').hide();
+	$('select[name=type]').change(function(){
+	
+		if($(this).val() == 2){
+
+			$('.limited').show();
+		}else{
+
+			$('.limited').hide();
+		}
+	});
+
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
 		radioClass: 'iradio-blue',

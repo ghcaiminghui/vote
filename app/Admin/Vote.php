@@ -9,7 +9,7 @@ class Vote extends Model
     //关联数据表
     protected $table = 'vote';
     //关闭时间戳
-    public $timestamps = true;
+    public $timestamps = false;
     //设置属性
     protected $fillable = ['title','intro','type','ticket_min','ticket_max','content','total','status'];
     //一对多
