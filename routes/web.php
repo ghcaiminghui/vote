@@ -73,6 +73,8 @@ Route::get('/','Home\PublicController@login');
 Route::post('/home/public/check','Home\PublicController@check');
 //前台退出登录
 Route::get('/home/public/logout','Home\PublicController@logout');
+//solar
+Route::get('/solar','Home\SolarController@index');
 
 //前台路由组
 Route::group(['prefix' => 'home', 'middleware' => 'login'],function(){

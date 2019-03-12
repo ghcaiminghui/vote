@@ -48,7 +48,7 @@ class CountingController extends Controller
     public function show()
     {
         //获取所有启用投票主题
-        $vote = Vote::where('status','2') -> get();
+        $vote = Vote::get();
 
         //获取所有的候选项
         $vote_option = Vote_option::get();
